@@ -3,7 +3,13 @@ import React,{ useEffect,useState } from 'react';
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 
-const socket=io('http://localhost:4000'); // Connect to your backend server
+let url;
+if (import.meta.env.NODE_ENV=="development") {
+    url=import.meta.env.LOCALHOST_URL;
+} else {
+    url=import.meta.env.DEPLOYED_URL;
+}
+const socket=io(url); // Connect to your backend server
 // console.log(socket);
 const CollaborativeEditor=(props) => {
     const { id }=useParams();
