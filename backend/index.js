@@ -2,20 +2,29 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import dotenv from "dotenv"
+
+dotenv.config();
 
 const app=express();
 const server=http.createServer(app);
 
+let url;
+if (process.env.NODE_ENV=="development") {
+    url=process.env.LOCALHOST_URL;
+} else {
+    url=process.env.DEPLOYED_URL;
+}
 // Use CORS middleware
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: url,
     methods: ['GET','POST'],
     allowedHeaders: ['Content-Type']
 }));
 
 const io=new Server(server,{
     cors: {
-        origin: "http://localhost:5173",
+        origin: url,
         methods: ["GET","POST"]
     }
 });
