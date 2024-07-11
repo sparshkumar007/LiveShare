@@ -5,10 +5,13 @@ import { useParams } from 'react-router-dom';
 
 let url;
 if (import.meta.env.NODE_ENV=="development") {
-    url=import.meta.env.LOCALHOST_URL;
+    url=import.meta.env.VITE_LOCALHOST_URL;
 } else {
-    url=import.meta.env.DEPLOYED_URL;
+    url=import.meta.env.VITE_DEPLOYED_URL;
 }
+
+// console.log(import.meta.env.NODE_ENV)
+console.log(url)
 const socket=io(url); // Connect to your backend server
 // console.log(socket);
 const CollaborativeEditor=(props) => {

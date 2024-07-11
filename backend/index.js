@@ -16,6 +16,7 @@ if (process.env.NODE_ENV=="development") {
     url=process.env.DEPLOYED_URL;
 }
 // Use CORS middleware
+console.log(url);
 app.use(cors({
     origin: url,
     methods: ['GET','POST'],
@@ -28,6 +29,8 @@ const io=new Server(server,{
         methods: ["GET","POST"]
     }
 });
+
+console.log('server created')
 
 let texts={};  // Store text for each room
 
