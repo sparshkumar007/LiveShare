@@ -2,8 +2,6 @@
 import React,{ useEffect,useState } from 'react';
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styled from 'styled-components';
 
 
