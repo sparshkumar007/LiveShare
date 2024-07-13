@@ -1,8 +1,9 @@
 // src/components/CollaborativeEditor.js
-import React,{ useEffect,useState } from 'react';
+import React,{ useEffect,useState,useCallback } from 'react';
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import _ from 'lodash';
 
 
 let url;
@@ -41,6 +42,10 @@ const CollaborativeEditor=(props) => {
     let { room }=props;
     if (id)
         room=id;
+    const debouncedSave=useCallback(
+        _.debounce((newText) => socket.emit('textChange',newText),300),
+        []
+    );
     const [text,setText]=useState('');
     useEffect(() => {
         socket.emit('joinRoom',room);
@@ -56,7 +61,7 @@ const CollaborativeEditor=(props) => {
     const handleChange=(e) => {
         const newText=e.target.value;
         setText(newText);
-        socket.emit('textChange',newText);
+        debouncedSave(newText);
     };
 
     return (
